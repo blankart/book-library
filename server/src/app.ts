@@ -22,7 +22,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   // Place here your custom code!
 
-  void fastify.register(cors, {
+  fastify.register(cors, {
     methods: "*",
     origin: (origin, cb) => {
       if (!origin) return cb(null, true);

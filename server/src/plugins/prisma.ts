@@ -11,14 +11,20 @@ declare module "fastify" {
 }
 
 const createPrismaClient = () => {
-  const prisma = new PrismaClient().$extends(extension).$extends(
-    createSoftDeleteExtension({
-      models: {
-        Author: true,
-        Book: true,
-      },
-    })
-  );
+  const prisma = new PrismaClient({
+    ...(process.env.NODE_ENV === "test" && {
+      datasources: { db: { url: process.env.TEST_DATABASE_URL } },
+    }),
+  })
+    .$extends(extension)
+    .$extends(
+      createSoftDeleteExtension({
+        models: {
+          Author: true,
+          Book: true,
+        },
+      })
+    );
 
   return prisma;
 };
