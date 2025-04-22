@@ -23,18 +23,22 @@ datasource db {
 }
 
 model Book {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
   authorId  String
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
-  updatedAt DateTime @updatedAt @db.Timestamptz(3)
-  author    Author   @relation(fields: [authorId], references: [id])
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
+  author    Author    @relation(fields: [authorId], references: [id])
+  deleted   Boolean   @default(false) /// @zod.custom.omit([model, input])
+  deletedAt DateTime? @db.Timestamptz(3) /// @zod.custom.omit([model, input])
 }
 
 model Author {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
-  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
   Book      Book[]
+  deleted   Boolean   @default(false) /// @zod.custom.omit([model, input])
+  deletedAt DateTime? @db.Timestamptz(3) /// @zod.custom.omit([model, input])
 }

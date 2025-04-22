@@ -17,7 +17,7 @@ export const renderPaginationItems = ({
   page?: number;
   handlePageChange: (i: number) => any;
 }) => {
-  if (totalPages) return null;
+  if (!totalPages) return null;
 
   const items = [];
   const currentPage = page || 1;
@@ -103,8 +103,8 @@ export function Pagination({
           />
         </PaginationItem>
         {renderPaginationItems({
-          totalPages: totalPages,
-          page: totalPages,
+          totalPages,
+          page,
           handlePageChange,
         })}
         <PaginationItem>
