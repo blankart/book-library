@@ -36,7 +36,7 @@ function RouteComponent() {
   };
 
   return (
-    <section className="container mx-auto my-10">
+    <section className="container p-4 mx-auto my-10">
       <div className="mb-4">
         {q ? (
           <h2 className="text-lg">
@@ -52,7 +52,7 @@ function RouteComponent() {
       </div>
 
       {isLoadingBooks ? (
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {Array.from({ length: 10 }).map((_, i) => (
             <BookSkeleton key={i} />
           ))}
@@ -77,7 +77,7 @@ function RouteComponent() {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {booksData?.result.map((book) => (
               <BookItem key={book.id} {...book} />
             ))}

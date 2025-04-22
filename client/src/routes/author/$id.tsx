@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { AuthorNotFound } from "@/components/author/author-not-found";
 import { AuthorPageSkeleton } from "@/components/author/author-page-skeleton";
+import { BookItem } from "@/components/book/book-item";
 
 export const Route = createFileRoute("/author/$id")({
   component: RouteComponent,
@@ -33,6 +34,12 @@ function RouteComponent() {
   const { mutateAsync: deleteAuthor, isPending: isDeletingAuthor } =
     queryClient.useMutation("delete", "/author/{id}");
 
+  const { data: booksData, isLoading: isLoadingBooks } = queryClient.useQuery(
+    "get",
+    "/book/",
+    { params: { query: { authorId: id } } }
+  );
+
   const handleDelete = async () => {
     await deleteAuthor({ params: { path: { id } } });
     navigate({ to: "/" });
@@ -40,8 +47,8 @@ function RouteComponent() {
 
   return (
     <main className="min-w-screen min-h-screen flex items-center justify-center">
-      <section className="w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-2 p-4">
-        <div className="col-span-2 flex justify-between items-center">
+      <section className="@container w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-1 sm:grid-cols-2 p-4">
+        <div className="col-span-1 sm:col-span-2 flex justify-between items-center">
           <Link
             to="/"
             className="text-xl font-bold flex gap-4 items-center"
@@ -121,6 +128,17 @@ function RouteComponent() {
                 </AlertDialog>
               </div>
             </div>
+
+            {!!booksData?.result?.length && (
+              <>
+                <h2 className="text-xl font-bold">Published Books</h2>
+                <div className="col-span-1 sm:col-span-2 grid grid-cols-1 @lg:grid-cols-2 @xl:grid-cols-3 gap-4">
+                  {booksData?.result.map((book) => (
+                    <BookItem key={book.id} {...book} />
+                  ))}
+                </div>
+              </>
+            )}
           </>
         ) : (
           <AuthorNotFound />

@@ -40,8 +40,8 @@ function RouteComponent() {
 
   return (
     <main className="min-w-screen min-h-screen flex items-center justify-center">
-      <section className="w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-2 p-4">
-        <div className="col-span-2 flex justify-between items-center">
+      <section className="w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-1 sm:grid-cols-2 p-4">
+        <div className="col-span-1 sm:col-span-2 flex justify-between items-center">
           <Link
             to="/"
             className="text-xl font-bold flex gap-4 items-center"

@@ -68,8 +68,8 @@ function RouteComponent() {
 
   return (
     <main className="min-w-screen min-h-screen flex items-center justify-center">
-      <section className="w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-2 p-4">
-        <div className="col-span-2">
+      <section className="w-[min(100%,800px)] gap-10 mx-auto grid grid-cols-1 sm:grid-cols-2 p-4">
+        <div className="col-span-1 sm:col-span-2">
           <Link
             to="/"
             className="text-xl font-bold flex gap-4 items-center"
@@ -95,7 +95,7 @@ function RouteComponent() {
               form.formState.isSubmitting && "pointer-events-none"
             )}
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 mb-10">
               <h1 className="font-bold text-3xl">Add Book</h1>
               <FormField
                 control={form.control}
@@ -108,7 +108,7 @@ function RouteComponent() {
                     <FormLabel>Book Title</FormLabel>
                     <FormControl>
                       <Input
-                        className="bg-white p-6 shadow-lg shadow-slate-300 placeholder:text-slate-400 !text-lg placeholder:text-lg !rounded-none w-[min(500px,100%)]"
+                        className="w-full bg-white p-6 shadow-lg shadow-slate-300 placeholder:text-slate-400 !text-lg placeholder:text-lg !rounded-none"
                         placeholder="Book Title"
                         {...field}
                       />
@@ -166,27 +166,29 @@ function RouteComponent() {
                             ) : (
                               <CommandEmpty className="flex text-sm flex-col items-center p-2">
                                 No author found.{" "}
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="!cursor-pointer text-blue-600"
-                                  disabled={isCreatingAuthor}
-                                  onClick={async () => {
-                                    const data = await createAuthor({
-                                      body: { name: q },
-                                    });
+                                {!!q && (
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="!cursor-pointer text-blue-600"
+                                    disabled={isCreatingAuthor}
+                                    onClick={async () => {
+                                      const data = await createAuthor({
+                                        body: { name: q },
+                                      });
 
-                                    form.setValue("author", data.name);
-                                    form.setValue("authorId", data.id);
-                                    setAuthorOptionsOpen(false);
-                                    setQ("");
-                                  }}
-                                >
-                                  Create{" "}
-                                  {isCreatingAuthor && (
-                                    <Loader className="animate-spin" />
-                                  )}
-                                </Button>
+                                      form.setValue("author", data.name);
+                                      form.setValue("authorId", data.id);
+                                      setAuthorOptionsOpen(false);
+                                      setQ("");
+                                    }}
+                                  >
+                                    Create{" "}
+                                    {isCreatingAuthor && (
+                                      <Loader className="animate-spin" />
+                                    )}
+                                  </Button>
+                                )}
                               </CommandEmpty>
                             )}
                             <CommandGroup>

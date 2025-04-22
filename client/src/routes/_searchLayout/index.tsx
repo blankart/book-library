@@ -23,10 +23,10 @@ function RouteComponent() {
 
   return (
     <>
-      <section className="container mx-auto my-10">
+      <section className="container p-4 mx-auto my-10">
         <h2 className="text-2xl font-bold mb-4">Featured Books</h2>
         {isLoadingBooks ? (
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {Array.from({ length: 10 }).map((_, i) => (
               <BookSkeleton key={i} />
             ))}
@@ -35,7 +35,7 @@ function RouteComponent() {
           <BookEmptySection />
         ) : (
           <>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {booksData?.result.map((book) => (
                 <BookItem key={book.id} {...book} />
               ))}
@@ -52,10 +52,10 @@ function RouteComponent() {
         )}
       </section>
 
-      <section className="container mx-auto my-10">
+      <section className="container p-4 mx-auto my-10">
         <h2 className="text-2xl font-bold mb-4">Featured Authors</h2>
         {isLoadingAuthors ? (
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
               <AuthorSkeleton key={i} />
             ))}
@@ -64,7 +64,7 @@ function RouteComponent() {
           <AuthorEmptySection />
         ) : (
           <>
-            <div className="grid grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
               {authorsData?.result.map((author) => (
                 <AuthorItem key={author.id} {...author} />
               ))}

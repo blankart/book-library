@@ -256,6 +256,7 @@ export interface paths {
                     limit?: number;
                     page?: number;
                     q?: string;
+                    authorId?: string;
                 };
                 header?: never;
                 path?: never;

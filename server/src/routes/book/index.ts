@@ -14,6 +14,7 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           limit: z.number({ coerce: true }).min(1).optional(),
           page: z.number({ coerce: true }).min(1).optional(),
           q: z.string().optional(),
+          authorId: AuthorSchema.shape.id.optional(),
         }),
         response: {
           200: z.object({
@@ -29,15 +30,21 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       },
     },
     async function (request) {
-      const { limit = 50, page = 1, q = "" } = request.query;
+      const { limit = 50, page = 1, q = "", authorId } = request.query;
       const { result, totalPages, hasNextPage, hasPrevPage, count } =
         await fastify.prisma.book.paginate({
           limit,
           page,
-          ...(q
+          ...(q || authorId
             ? {
                 where: {
-                  title: { contains: q, mode: "insensitive" },
+                  ...(q && {
+                    title: { contains: q, mode: "insensitive" },
+                  }),
+
+                  ...(authorId && {
+                    authorId,
+                  }),
                 },
               }
             : {}),

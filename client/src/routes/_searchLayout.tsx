@@ -37,7 +37,7 @@ function RouteComponent() {
   const { q } = Route.useSearch();
   const routerState = useRouterState();
   const [searchBy, setSearchBy] = useState<"author" | "book">(
-    routerState.location.pathname === "/book" ? "book" : "author"
+    routerState.location.pathname === "/author" ? "author" : "book"
   );
   const navigate = useNavigate();
 
@@ -60,13 +60,13 @@ function RouteComponent() {
     <main>
       <section className="mt-20">
         <Link to="/" viewTransition>
-          <h1 className="mx-auto text-center container text-5xl mb-5 font-bold text-slate-800">
+          <h1 className="mx-auto text-center container p-4 text-5xl mb-5 font-bold text-slate-800">
             Book Library
           </h1>
         </Link>
       </section>
 
-      <section className="container mx-auto flex justify-center gap-2 items-center py-4">
+      <section className="container p-4 mx-auto flex justify-center gap-2 items-center py-4">
         <Input
           defaultValue={q}
           onChange={(e) => {
@@ -99,7 +99,7 @@ function RouteComponent() {
         </Select>
       </section>
 
-      <div className="container mx-auto gap-2 flex items-center justify-end">
+      <div className="container p-4 mx-auto gap-2 flex items-center justify-end">
         <Link to="/book/new" viewTransition>
           <Button variant="outline" className="cursor-pointer rounded-none">
             New Book
