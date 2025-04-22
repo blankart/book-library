@@ -40,7 +40,7 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
               }
             : {}),
           include: {
-            _count: { select: { Book: true } },
+            _count: { select: { Book: { where: { deleted: false } } } },
           },
         });
 
@@ -76,7 +76,7 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       const _author = await fastify.prisma.author.findFirst({
         where: { id },
         include: {
-          _count: { select: { Book: true } },
+          _count: { select: { Book: { where: { deleted: false } } } },
         },
       });
 

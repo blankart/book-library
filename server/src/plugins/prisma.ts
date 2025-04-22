@@ -1,7 +1,7 @@
 import fp from "fastify-plugin";
 import { FastifyPluginAsync } from "fastify";
 import { PrismaClient } from "@prisma/client";
-import { extension } from "prisma-paginate";
+import { extension as extensionPaginate } from "prisma-paginate";
 import { createSoftDeleteExtension } from "prisma-extension-soft-delete";
 
 declare module "fastify" {
@@ -16,15 +16,21 @@ const createPrismaClient = () => {
       datasources: { db: { url: process.env.TEST_DATABASE_URL } },
     }),
   })
-    .$extends(extension)
     .$extends(
       createSoftDeleteExtension({
         models: {
           Author: true,
-          Book: true,
+          Book: {
+            field: "deletedAt",
+            createValue(deleted) {
+              if (deleted) return new Date();
+              return null;
+            },
+          },
         },
       })
-    );
+    )
+    .$extends(extensionPaginate);
 
   return prisma;
 };
