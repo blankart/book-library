@@ -1,0 +1,10 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "include": ["src/**/*.ts", "generated/**/*.ts"]
+}
