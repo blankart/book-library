@@ -3,6 +3,7 @@ import {
   Link,
   Outlet,
   useNavigate,
+  useRouterState,
 } from "@tanstack/react-router";
 import { Input } from "@/components/ui/input";
 import {
@@ -34,7 +35,10 @@ export const Route = createFileRoute("/_searchLayout")({
 
 function RouteComponent() {
   const { q } = Route.useSearch();
-  const [searchBy, setSearchBy] = useState<"author" | "book">("book");
+  const routerState = useRouterState();
+  const [searchBy, setSearchBy] = useState<"author" | "book">(
+    routerState.location.pathname === "/book" ? "book" : "author"
+  );
   const navigate = useNavigate();
 
   const handleSearch = useDebounceCallback(

@@ -162,16 +162,6 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     async function (request, response) {
       const { id } = request.params;
       try {
-        if (request.body.authorId) {
-          const author = await fastify.prisma.author.findUnique({
-            where: { id: request.body.authorId },
-          });
-
-          if (!author) {
-            return response.status(400).send({ error: "Author not found" });
-          }
-        }
-
         const book = await fastify.prisma.book.update({
           where: { id },
           data: request.body,

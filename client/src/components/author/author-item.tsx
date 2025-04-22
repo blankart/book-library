@@ -20,7 +20,9 @@ export function AuthorItem({ id, name, booksCount }: AuthorItemProps) {
         className="w-full aspect-square bg-slate-200 rounded-full"
       />
       <p className="font-semibold mt-2 text-center">{name}</p>
-      <p className="text-slate-600 text-center">{booksCount} books</p>
+      <p className="text-slate-600 text-center">
+        Published {booksCount} book{booksCount === 1 ? null : "s"}
+      </p>
     </Link>
   );
 }
