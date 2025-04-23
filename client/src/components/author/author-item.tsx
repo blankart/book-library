@@ -29,7 +29,10 @@ export function AuthorItem({ id, name, booksCount }: AuthorItemProps) {
 
 export function AuthorSkeleton() {
   return (
-    <Skeleton className="w-full h-full bg-slate-300">
+    <Skeleton
+      className="w-full h-full bg-slate-300"
+      data-testid="author-skeleton"
+    >
       <div className="w-full aspect-square rounded-full" />
       <div className="font-semibold mt-2 opacity-0 text-center">Loading...</div>
       <div className="text-slate-600 opacity-0 text-center">Loading...</div>

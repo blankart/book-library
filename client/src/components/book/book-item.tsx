@@ -29,7 +29,10 @@ export function BookItem({ id, title, author }: BookItemProps) {
 
 export function BookSkeleton() {
   return (
-    <Skeleton className="w-full h-full bg-slate-300">
+    <Skeleton
+      className="w-full h-full bg-slate-300"
+      data-testid="book-skeleton"
+    >
       <div className="w-full aspect-[3/4]" />
       <div className="font-semibold mt-2 opacity-0">Loading...</div>
       <div className="text-slate-600 opacity-0">Loading...</div>
